@@ -85,7 +85,7 @@ toggle-user-motd:
     fi
 
 # Install AM application manager to install and update appimages, extracted tar apps, and other static libraries
-setup-am-manager:
+manage-am-manager:
     #!/usr/bin/bash
     echo "Select an option for what you would like to do with am application manager."
     OPTION=$(ugum choose "Install am" "Remove am")
@@ -97,3 +97,9 @@ setup-am-manager:
       echo 'Cancelling...'
       exit 0
     fi
+
+# Chowns am with current user so it can be edited
+chown-am:
+    #!/usr/bin/bash
+    currentuser=$(who | awk '{print $1}')
+    sudo chown -R $currentuser /opt/am 2> /dev/null
